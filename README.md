@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-# global_capstone
-=======
 # Qwen3 AWQ INT4 추론 실행 가이드
 
 이 저장소는 packed AWQ INT4 체크포인트를 이용해 Qwen3 모델을 추론하기 위한 코드입니다.
@@ -183,12 +180,20 @@ python -c "import awq_inference_engine; print('awq_inference_engine OK'); print(
 
 ### Hugging Face Hub에서 모델 파일 받기
 
-GitHub에는 코드만 올리고, 대용량 AWQ checkpoint와 runtime 파일은 Hugging Face Hub model repository에 올리는 것을 권장합니다.
+GitHub에는 코드만 올리고, 대용량 AWQ checkpoint와 runtime 파일은 Hugging Face Hub model repository에서 가져옵니다.
+
+모델/runtime repository:
+
+```text
+https://huggingface.co/HMHMlee/qwen3-4b-awq-runtime
+```
+
+이 repository를 로컬의 `qwen3-4b-awq-runtime/` 디렉토리로 내려받고, checkpoint 파일은 `model/` 디렉토리에 배치해야 합니다.
 
 권장 Hub repository 구조:
 
 ```text
-your-hf-id/qwen3-4b-awq-runtime
+HMHMlee/qwen3-4b-awq-runtime
 ├── README.md
 ├── LICENSE
 ├── config.json
@@ -210,7 +215,7 @@ python - <<'PY'
 from huggingface_hub import snapshot_download
 
 snapshot_download(
-    repo_id="your-hf-id/qwen3-4b-awq-runtime",
+    repo_id="HMHMlee/qwen3-4b-awq-runtime",
     local_dir="qwen3-4b-awq-runtime",
     local_dir_use_symlinks=False,
 )
@@ -390,4 +395,3 @@ python infer_awq.py \
   --load_quant /content/model/qwen3-4b-w4-g128-awq-v2.pt \
   --prompt "please talk about harry potter"
 ```
->>>>>>> aff131f (Add AWQ inference scripts and setup guide)
