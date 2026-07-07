@@ -1,0 +1,14 @@
+# PyTorch is intentionally not listed here.
+# Install the CUDA/JetPack-compatible PyTorch build for the target platform first.
+
+# Inference
+accelerate>=0.34.2
+transformers>=4.51.0
+tokenizers>=0.12.1
+sentencepiece
+protobuf
+numpy
+tqdm
+
+# awq/kernels build helper
+ninja

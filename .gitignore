@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Local model artifacts
+model/
+*.pt
+*.pth
+*.bin
+*.safetensors
+
+# Hugging Face runtime/model files are uploaded to the Hub, not GitHub.
+qwen3-4b-awq-runtime/
+
+# AWQ CUDA extension build outputs
+awq/kernels/build/
+awq/kernels/*.egg-info/
+awq/kernels/awq_inference_engine.egg-info/
+*.so
+*.o
+*.egg-info/
+
+# Logs and local outputs
+*.log
+logs/
+outputs/
+results/
