@@ -281,6 +281,7 @@ def build_inputs(tokenizer, prompt, device):
             [{"role": "user", "content": prompt}],
             tokenize=False,
             add_generation_prompt=True,
+            enable_thinking=False,
         )
     else:
         text = prompt
