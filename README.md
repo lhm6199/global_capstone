@@ -1,5 +1,7 @@
 # Qwen3 AWQ INT4 추론 실행 가이드
 
+# conda activate hyunmin
+
 이 저장소는 packed AWQ INT4 체크포인트를 이용해 Qwen3 모델을 추론하기 위한 코드입니다.
 
 지원하는 실행 경로는 두 가지입니다.

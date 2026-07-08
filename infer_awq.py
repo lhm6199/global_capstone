@@ -7,6 +7,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from accelerate import init_empty_weights, load_checkpoint_in_model
 from transformers import AutoConfig, AutoModelForCausalLM, AutoTokenizer
+import awq_inference_engine
 
 
 FALLBACK_OP_PROFILE = False
