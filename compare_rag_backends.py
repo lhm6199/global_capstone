@@ -19,8 +19,8 @@ Answer:"""
 
 
 def parse_args(argv=None):
-    parser = argparse.ArgumentParser(description="Compare FAISS and MiniRAG backends on SQuAD.")
-    parser.add_argument("--dataset", default="squad", choices=["squad"])
+    parser = argparse.ArgumentParser(description="Compare FAISS and MiniRAG backends on RAG eval sets.")
+    parser.add_argument("--dataset", default="squad", choices=["squad", "hotpotqa"])
     parser.add_argument("--eval-file", default="data/eval/squad_diverse_30.json")
     parser.add_argument("--rag-index-dir", default="data/indexes/squad_bge_base")
     parser.add_argument(
@@ -63,6 +63,14 @@ def render_prompt(question: str, context: str) -> str:
     return DEFAULT_PROMPT_TEMPLATE.format(question=question.strip(), context=context.strip())
 
 
+def build_query_metadata(eval_item: dict) -> dict:
+    return {
+        key: value
+        for key, value in eval_item.items()
+        if key not in {"id", "question", "answers"}
+    }
+
+
 class FaissNaiveBackend:
     def __init__(self, index_dir, embedding_model, batch_size, local_files_only, device, top_k):
         from rag.prompting import RagPromptBuilder
@@ -86,6 +94,15 @@ class FaissNaiveBackend:
         metrics = dict(search["metrics"])
         metrics["rag_prepare_ms"] = (time.perf_counter() - started) * 1000.0
         return {"context": context, "retrieved": retrieved, "metrics": metrics}
+
+
+class MiniRAGModeBackend:
+    def __init__(self, adapter, mode: str):
+        self.adapter = adapter
+        self.mode = mode
+
+    def prepare(self, question: str) -> dict:
+        return self.adapter.prepare(question, self.mode)
 
 
 def build_minirag_llm(model, tokenizer, device, generation_config):
@@ -125,15 +142,18 @@ def build_backends(args, model, tokenizer, device, generation_config):
             args.rag_device,
             args.rag_top_k,
         )
-    for backend_name, mode in (
-        ("minirag_naive", "naive"),
-        ("minirag_light", "light"),
-        ("minirag_mini", "mini"),
-    ):
-        if backend_name not in args.backends:
-            continue
-        backends[backend_name] = MiniRAGAdapter(
-            working_dir=Path(args.minirag_working_dir) / mode,
+    requested_minirag = {
+        backend_name: mode
+        for backend_name, mode in (
+            ("minirag_naive", "naive"),
+            ("minirag_light", "light"),
+            ("minirag_mini", "mini"),
+        )
+        if backend_name in args.backends
+    }
+    if requested_minirag:
+        shared_adapter = MiniRAGAdapter(
+            working_dir=Path(args.minirag_working_dir),
             embedding_model=args.embedding_model,
             llm_complete=minirag_llm,
             chunk_records=chunk_records,
@@ -143,16 +163,33 @@ def build_backends(args, model, tokenizer, device, generation_config):
             rebuild_index=args.rebuild_minirag_index,
             embedding_device=args.rag_device,
         )
+        for backend_name, mode in requested_minirag.items():
+            backends[backend_name] = MiniRAGModeBackend(shared_adapter, mode)
     return backends
 
 
 def build_retrieval_metrics(eval_item: dict, retrieved: list[dict], top_k: int) -> dict:
     source_chunk_id = eval_item.get("source_chunk_id")
-    chunk_ids = [item.get("chunk_id") for item in retrieved[:top_k]]
+    if source_chunk_id:
+        chunk_ids = [item.get("chunk_id") for item in retrieved[:top_k]]
+        return {
+            "top1_hit": bool(chunk_ids[:1] and chunk_ids[0] == source_chunk_id),
+            "top3_hit": source_chunk_id in chunk_ids[:3],
+            "retrieved_top_k": len(chunk_ids),
+        }
+
+    supporting_titles = set(eval_item.get("supporting_titles", []))
+    retrieved_titles = [item.get("title") for item in retrieved[:top_k] if item.get("title")]
+    title_hits = sorted(supporting_titles.intersection(retrieved_titles))
     return {
-        "top1_hit": bool(chunk_ids[:1] and chunk_ids[0] == source_chunk_id),
-        "top3_hit": source_chunk_id in chunk_ids[:3],
-        "retrieved_top_k": len(chunk_ids),
+        "top1_hit": bool(retrieved_titles[:1] and retrieved_titles[0] in supporting_titles),
+        "top3_hit": bool(title_hits),
+        "retrieved_top_k": len(retrieved_titles),
+        "supporting_title_hits": title_hits,
+        "supporting_title_hit_count": len(title_hits),
+        "supporting_title_recall": (
+            len(title_hits) / len(supporting_titles) if supporting_titles else 0.0
+        ),
     }
 
 
@@ -192,12 +229,16 @@ def run_comparison(args):
             )
             total_prepare_ms = (time.perf_counter() - prepare_started) * 1000.0
             generation_metrics = {
+                "context_chars": len(prepared["context"]),
+                "prompt_chars": len(prompt),
                 "retrieved_tokens": len(
                     tokenizer(prepared["context"], add_special_tokens=False)["input_ids"]
                 ),
                 "prompt_tokens": generation["prompt_tokens"],
                 "answer_tokens": generation["answer_tokens"],
+                "build_inputs_ms": generation["timings"].get("build_inputs", 0.0) * 1000.0,
                 "generate_ms": generation["timings"]["generate"] * 1000.0,
+                "decode_ms": generation["timings"].get("decode", 0.0) * 1000.0,
                 "tokens_per_second": generation["timings"]["tokens_per_second"],
                 "rag_prepare_ms": prepared["metrics"].get("rag_prepare_ms", total_prepare_ms),
             }
@@ -209,12 +250,18 @@ def run_comparison(args):
                 + generation_metrics.get("faiss_search_ms", 0.0)
                 + generation_metrics.get("minirag_retrieval_ms", 0.0)
             )
+            generation_metrics["total_latency_ms"] = (
+                generation_metrics["rag_prepare_ms"] + generation_metrics["generate_ms"]
+            )
             row = {
                 "dataset": args.dataset,
                 "backend": backend_name,
                 "query_id": eval_item["id"],
                 "question": eval_item["question"],
                 "gold_answers": eval_item["answers"],
+                "query_metadata": build_query_metadata(eval_item),
+                "context": prepared["context"],
+                "prompt": prompt,
                 "retrieved": prepared["retrieved"],
                 "answer": generation["text"],
                 "retrieval_metrics": build_retrieval_metrics(
@@ -237,8 +284,12 @@ def run_comparison(args):
         "backends": list(backends),
         "top_k": args.rag_top_k,
         "max_new_tokens": args.max_new_tokens,
+        "eval_file": args.eval_file,
+        "rag_index_dir": args.rag_index_dir,
+        "minirag_working_dir": args.minirag_working_dir,
         "generation_config": generation_config,
         "load_timings": load_timings,
+        "result_count": len(rows),
     }
     return {"metadata": metadata, "results": rows}
 
@@ -253,7 +304,8 @@ def build_summary(results: list[dict]) -> str:
     for row in results:
         by_backend.setdefault(row["backend"], []).append(row)
 
-    lines = ["# SQuAD Backend Comparison", "", "## Quality", "", "| backend | EM | F1 | contains_gold | top3_hit |", "| --- | ---: | ---: | ---: | ---: |"]
+    dataset_name = results[0]["dataset"] if results else "dataset"
+    lines = [f"# {dataset_name} Backend Comparison", "", "## Quality", "", "| backend | EM | F1 | contains_gold | top3_hit |", "| --- | ---: | ---: | ---: | ---: |"]
     for backend, rows in by_backend.items():
         lines.append(
             "| {backend} | {em:.3f} | {f1:.3f} | {contains:.3f} | {hit:.3f} |".format(

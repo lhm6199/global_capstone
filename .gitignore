@@ -44,3 +44,6 @@ logs/
 outputs/
 results/
 data/indexes/
+data/raw/
+data/hotpot_demo/
+tmp/

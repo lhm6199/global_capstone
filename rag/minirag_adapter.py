@@ -29,6 +29,8 @@ def _single_chunking(content, *_args, **_kwargs):
 
 
 def _parse_csv_section(context: str, section_name: str) -> list[list[str]]:
+    if not isinstance(context, str) or not context:
+        return []
     marker = f"-----{section_name}-----"
     if marker not in context:
         return []
@@ -74,6 +76,8 @@ class MiniRAGAdapter:
 
     def _build_rag(self):
         async def embed_texts(texts):
+            if self.embedding_model.startswith("hash://"):
+                return self._embedder.embed_texts(list(texts))
             return await asyncio.to_thread(self._embedder.embed_texts, list(texts))
 
         return MiniRAG(
@@ -82,7 +86,7 @@ class MiniRAGAdapter:
             chunk_overlap_token_size=0,
             chunk_token_size=65536,
             embedding_func=EmbeddingFunc(
-                embedding_dim=768,
+                embedding_dim=self._embedder.embedding_dim,
                 max_token_size=8192,
                 func=embed_texts,
             ),
@@ -125,6 +129,22 @@ class MiniRAGAdapter:
             json.dumps(expected, ensure_ascii=False, indent=2),
             encoding="utf-8",
         )
+
+    def get_index_stats(self) -> dict:
+        graph_path = self.working_dir / "graph_chunk_entity_relation.graphml"
+        entity_vdb_path = self.working_dir / "vdb_entities.json"
+        relation_vdb_path = self.working_dir / "vdb_relationships.json"
+        chunk_vdb_path = self.working_dir / "vdb_chunks.json"
+        return {
+            "working_dir": str(self.working_dir),
+            "chunk_count": len(self.chunk_records),
+            "manifest_path": str(self._manifest_path),
+            "graph_path": str(graph_path),
+            "graph_exists": graph_path.exists(),
+            "entity_vdb_exists": entity_vdb_path.exists(),
+            "relationship_vdb_exists": relation_vdb_path.exists(),
+            "chunk_vdb_exists": chunk_vdb_path.exists(),
+        }
 
     def _build_retrieved_from_context(self, context: str) -> list[dict]:
         rows = _parse_csv_section(context, "Sources")
@@ -190,7 +210,7 @@ class MiniRAGAdapter:
 
         retrieval_ms = (time.perf_counter() - started) * 1000.0
         return {
-            "context": context,
+            "context": context or "",
             "retrieved": retrieved[: self.top_k],
             "metrics": {"minirag_retrieval_ms": retrieval_ms},
         }

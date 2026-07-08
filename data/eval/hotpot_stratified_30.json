@@ -1,0 +1,782 @@
+[
+  {
+    "id": "5abc715f5542993a06baf8ea",
+    "dataset": "hotpotqa",
+    "question": "which Soviet Russian cellist.did Anton Ginsburg work best known as accompany ",
+    "answers": [
+      "Daniil Shafran"
+    ],
+    "answer": "Daniil Shafran",
+    "type": "bridge",
+    "level": "hard",
+    "supporting_titles": [
+      "Anton Ginsburg",
+      "Daniil Shafran"
+    ],
+    "supporting_facts": [
+      [
+        "Anton Ginsburg",
+        4
+      ],
+      [
+        "Daniil Shafran",
+        0
+      ]
+    ],
+    "source_split": "dev"
+  },
+  {
+    "id": "5ae0f5fc554299422ee9957c",
+    "dataset": "hotpotqa",
+    "question": "Who did Neleus of Scepsis study under in addition to Theophrastus in the Peripatetic school?",
+    "answers": [
+      "Aristotle"
+    ],
+    "answer": "Aristotle",
+    "type": "bridge",
+    "level": "hard",
+    "supporting_titles": [
+      "Neleus of Scepsis",
+      "Theophrastus"
+    ],
+    "supporting_facts": [
+      [
+        "Neleus of Scepsis",
+        1
+      ],
+      [
+        "Theophrastus",
+        0
+      ]
+    ],
+    "source_split": "dev"
+  },
+  {
+    "id": "5ade1f1c55429939a52fe82d",
+    "dataset": "hotpotqa",
+    "question": "Len Wiseman directed \"Live Free or Die Hard\" which is the 4 installment in the Die Hard film franchise base on what character?",
+    "answers": [
+      "John McClane"
+    ],
+    "answer": "John McClane",
+    "type": "bridge",
+    "level": "hard",
+    "supporting_titles": [
+      "Len Wiseman",
+      "Live Free or Die Hard"
+    ],
+    "supporting_facts": [
+      [
+        "Len Wiseman",
+        1
+      ],
+      [
+        "Live Free or Die Hard",
+        1
+      ]
+    ],
+    "source_split": "dev"
+  },
+  {
+    "id": "5ae61351554299546bf83066",
+    "dataset": "hotpotqa",
+    "question": "When did the Italian luxury fashion house which Daas has appeared in campaigns for brands like founded",
+    "answers": [
+      "in 1985"
+    ],
+    "answer": "in 1985",
+    "type": "bridge",
+    "level": "hard",
+    "supporting_titles": [
+      "Dolce &amp; Gabbana",
+      "Nikii Daas"
+    ],
+    "supporting_facts": [
+      [
+        "Nikii Daas",
+        3
+      ],
+      [
+        "Dolce &amp; Gabbana",
+        0
+      ]
+    ],
+    "source_split": "dev"
+  },
+  {
+    "id": "5abbfb5e554299114383a0d0",
+    "dataset": "hotpotqa",
+    "question": "Which game showed has reruns on Teletoon in Canada and was shown between midnight and 6:00 on Cartoon Network Too?",
+    "answers": [
+      "Skatoony"
+    ],
+    "answer": "Skatoony",
+    "type": "bridge",
+    "level": "hard",
+    "supporting_titles": [
+      "Cartoon Network Too",
+      "Skatoony"
+    ],
+    "supporting_facts": [
+      [
+        "Cartoon Network Too",
+        3
+      ],
+      [
+        "Skatoony",
+        3
+      ]
+    ],
+    "source_split": "dev"
+  },
+  {
+    "id": "5abbeb7d554299114383a09b",
+    "dataset": "hotpotqa",
+    "question": "Pulsed Pressure Cavitation Technique was developed at a natioal laboratory sponsored by what U.S. department?",
+    "answers": [
+      "U.S. Department of Energy"
+    ],
+    "answer": "U.S. Department of Energy",
+    "type": "bridge",
+    "level": "hard",
+    "supporting_titles": [
+      "Oak Ridge National Laboratory",
+      "Pulsed Pressure Cavitation Technique"
+    ],
+    "supporting_facts": [
+      [
+        "Pulsed Pressure Cavitation Technique",
+        1
+      ],
+      [
+        "Oak Ridge National Laboratory",
+        0
+      ]
+    ],
+    "source_split": "dev"
+  },
+  {
+    "id": "5ab2d65e554299545a2cfabe",
+    "dataset": "hotpotqa",
+    "question": "The standard that defines Svalbard and Jan Mayen is similar to what standard that originated in the United Nations Statistics Division?",
+    "answers": [
+      "UN M.49 standard"
+    ],
+    "answer": "UN M.49 standard",
+    "type": "bridge",
+    "level": "hard",
+    "supporting_titles": [
+      "ISO 3166-1 numeric",
+      "Svalbard and Jan Mayen"
+    ],
+    "supporting_facts": [
+      [
+        "Svalbard and Jan Mayen",
+        0
+      ],
+      [
+        "ISO 3166-1 numeric",
+        1
+      ]
+    ],
+    "source_split": "dev"
+  },
+  {
+    "id": "5a75639255429916b01642f7",
+    "dataset": "hotpotqa",
+    "question": "What role did Ben Keaton play in the british film East is East written by Ayub Khan-Din?",
+    "answers": [
+      "a priest"
+    ],
+    "answer": "a priest",
+    "type": "bridge",
+    "level": "hard",
+    "supporting_titles": [
+      "Ben Keaton",
+      "East Is East (1999 film)"
+    ],
+    "supporting_facts": [
+      [
+        "Ben Keaton",
+        3
+      ],
+      [
+        "East Is East (1999 film)",
+        0
+      ]
+    ],
+    "source_split": "dev"
+  },
+  {
+    "id": "5add2b435542990d50227e11",
+    "dataset": "hotpotqa",
+    "question": "Who will Billy Howle be seen opposite in the upcoming British drama film directed by Dominic Cooke?",
+    "answers": [
+      "Saoirse Ronan"
+    ],
+    "answer": "Saoirse Ronan",
+    "type": "bridge",
+    "level": "hard",
+    "supporting_titles": [
+      "Billy Howle",
+      "On Chesil Beach (film)"
+    ],
+    "supporting_facts": [
+      [
+        "Billy Howle",
+        3
+      ],
+      [
+        "On Chesil Beach (film)",
+        0
+      ]
+    ],
+    "source_split": "dev"
+  },
+  {
+    "id": "5a81b4cc5542995ce29dcc3c",
+    "dataset": "hotpotqa",
+    "question": "Hotride is the fifteenth single released by what music group from Braintree, Essex, that was formed in 1990?",
+    "answers": [
+      "The Prodigy"
+    ],
+    "answer": "The Prodigy",
+    "type": "bridge",
+    "level": "hard",
+    "supporting_titles": [
+      "Hotride",
+      "The Prodigy"
+    ],
+    "supporting_facts": [
+      [
+        "Hotride",
+        0
+      ],
+      [
+        "The Prodigy",
+        0
+      ]
+    ],
+    "source_split": "dev"
+  },
+  {
+    "id": "5aba510f5542994dbf0198d6",
+    "dataset": "hotpotqa",
+    "question": "Yakuza Kiwami is a remake of the first video game in what video game series that is an open world action-adventure beat 'em up video game franchise?",
+    "answers": [
+      "Yakuza"
+    ],
+    "answer": "Yakuza",
+    "type": "bridge",
+    "level": "hard",
+    "supporting_titles": [
+      "Yakuza (series)",
+      "Yakuza Kiwami"
+    ],
+    "supporting_facts": [
+      [
+        "Yakuza Kiwami",
+        1
+      ],
+      [
+        "Yakuza (series)",
+        0
+      ]
+    ],
+    "source_split": "dev"
+  },
+  {
+    "id": "5a7365b155429901807db02a",
+    "dataset": "hotpotqa",
+    "question": "Which war was HMS Clonmel in where over nine million combatants died?",
+    "answers": [
+      "World War I"
+    ],
+    "answer": "World War I",
+    "type": "bridge",
+    "level": "hard",
+    "supporting_titles": [
+      "HMS Clonmel (1918)",
+      "World War I"
+    ],
+    "supporting_facts": [
+      [
+        "HMS Clonmel (1918)",
+        0
+      ],
+      [
+        "World War I",
+        2
+      ]
+    ],
+    "source_split": "dev"
+  },
+  {
+    "id": "5a84f6c55542997175ce1f36",
+    "dataset": "hotpotqa",
+    "question": "Geoffrey Serle wrote a biography about which Australian military commander who planned the Allied attack at the Battle of Amiens in 1918?",
+    "answers": [
+      "John Monash"
+    ],
+    "answer": "John Monash",
+    "type": "bridge",
+    "level": "hard",
+    "supporting_titles": [
+      "Geoffrey Serle",
+      "John Monash"
+    ],
+    "supporting_facts": [
+      [
+        "Geoffrey Serle",
+        0
+      ],
+      [
+        "John Monash",
+        3
+      ]
+    ],
+    "source_split": "dev"
+  },
+  {
+    "id": "5a77a8b45542995d83181253",
+    "dataset": "hotpotqa",
+    "question": "What is the name of the Kegeyli District in the Turkic language spoken in Karakalpakstan?",
+    "answers": [
+      "Kegeyli rayonı"
+    ],
+    "answer": "Kegeyli rayonı",
+    "type": "bridge",
+    "level": "hard",
+    "supporting_titles": [
+      "Karakalpak language",
+      "Kegeyli District"
+    ],
+    "supporting_facts": [
+      [
+        "Kegeyli District",
+        0
+      ],
+      [
+        "Karakalpak language",
+        0
+      ]
+    ],
+    "source_split": "dev"
+  },
+  {
+    "id": "5ae4c8f35542990ba0bbb130",
+    "dataset": "hotpotqa",
+    "question": "Ralf Popken had a role in a musical that is a satire on corruption in the administration of criminal justice, bringing what concept to light?",
+    "answers": [
+      "the \"celebrity criminal\""
+    ],
+    "answer": "the \"celebrity criminal\"",
+    "type": "bridge",
+    "level": "hard",
+    "supporting_titles": [
+      "Chicago (musical)",
+      "Ralf Popken"
+    ],
+    "supporting_facts": [
+      [
+        "Ralf Popken",
+        4
+      ],
+      [
+        "Chicago (musical)",
+        2
+      ]
+    ],
+    "source_split": "dev"
+  },
+  {
+    "id": "5ab2e3a35542991669774124",
+    "dataset": "hotpotqa",
+    "question": "The Pioneer Helmet and the Benty Grange helmet are linked because of which feature?",
+    "answers": [
+      "A simple iron boar crest"
+    ],
+    "answer": "A simple iron boar crest",
+    "type": "bridge",
+    "level": "hard",
+    "supporting_titles": [
+      "Benty Grange helmet",
+      "Pioneer Helmet"
+    ],
+    "supporting_facts": [
+      [
+        "Pioneer Helmet",
+        2
+      ],
+      [
+        "Benty Grange helmet",
+        0
+      ]
+    ],
+    "source_split": "dev"
+  },
+  {
+    "id": "5a75383a5542996c70cfaeb3",
+    "dataset": "hotpotqa",
+    "question": "Who was born first, Ulf Merbold or Mirosław Hermaszewski?",
+    "answers": [
+      "Ulf Dietrich Merbold"
+    ],
+    "answer": "Ulf Dietrich Merbold",
+    "type": "comparison",
+    "level": "hard",
+    "supporting_titles": [
+      "Mirosław Hermaszewski",
+      "Ulf Merbold"
+    ],
+    "supporting_facts": [
+      [
+        "Ulf Merbold",
+        0
+      ],
+      [
+        "Mirosław Hermaszewski",
+        0
+      ]
+    ],
+    "source_split": "dev"
+  },
+  {
+    "id": "5abec12b5542997ec76fd358",
+    "dataset": "hotpotqa",
+    "question": "Which person is known for playing in punk bands, Keith Morris or Rome Ramirez?",
+    "answers": [
+      "Keith Morris"
+    ],
+    "answer": "Keith Morris",
+    "type": "comparison",
+    "level": "hard",
+    "supporting_titles": [
+      "Keith Morris",
+      "Rome Ramirez"
+    ],
+    "supporting_facts": [
+      [
+        "Keith Morris",
+        0
+      ],
+      [
+        "Rome Ramirez",
+        0
+      ]
+    ],
+    "source_split": "dev"
+  },
+  {
+    "id": "5a8bde565542995d1e6f1454",
+    "dataset": "hotpotqa",
+    "question": "Which airport Grand Forks International Airport or El Paso International Airport is closer to their town ?",
+    "answers": [
+      "El Paso International Airport"
+    ],
+    "answer": "El Paso International Airport",
+    "type": "comparison",
+    "level": "hard",
+    "supporting_titles": [
+      "El Paso International Airport",
+      "Grand Forks International Airport"
+    ],
+    "supporting_facts": [
+      [
+        "Grand Forks International Airport",
+        0
+      ],
+      [
+        "El Paso International Airport",
+        0
+      ]
+    ],
+    "source_split": "dev"
+  },
+  {
+    "id": "5a778cae55429949eeb29eeb",
+    "dataset": "hotpotqa",
+    "question": "Who is younger Chris Gould or Robbie Gould ?",
+    "answers": [
+      "Chris Gould"
+    ],
+    "answer": "Chris Gould",
+    "type": "bridge",
+    "level": "hard",
+    "supporting_titles": [
+      "Chris Gould",
+      "Robbie Gould"
+    ],
+    "supporting_facts": [
+      [
+        "Chris Gould",
+        0
+      ],
+      [
+        "Robbie Gould",
+        0
+      ]
+    ],
+    "source_split": "dev"
+  },
+  {
+    "id": "5a9072dd5542990a98493656",
+    "dataset": "hotpotqa",
+    "question": "What type of music did Dave Wyndorf and Poly Styrene perform as part of their work in Monster Magnet and X-Ray Spex?",
+    "answers": [
+      "rock"
+    ],
+    "answer": "rock",
+    "type": "comparison",
+    "level": "hard",
+    "supporting_titles": [
+      "Dave Wyndorf",
+      "Poly Styrene"
+    ],
+    "supporting_facts": [
+      [
+        "Dave Wyndorf",
+        0
+      ],
+      [
+        "Poly Styrene",
+        0
+      ]
+    ],
+    "source_split": "dev"
+  },
+  {
+    "id": "5ae0cddc55429945ae959459",
+    "dataset": "hotpotqa",
+    "question": "National Firearms Agreement was in response to the Port Arthur massacre that killed how many people?",
+    "answers": [
+      "35 people"
+    ],
+    "answer": "35 people",
+    "type": "bridge",
+    "level": "hard",
+    "supporting_titles": [
+      "National Firearms Agreement",
+      "Port Arthur massacre (Australia)"
+    ],
+    "supporting_facts": [
+      [
+        "National Firearms Agreement",
+        0
+      ],
+      [
+        "Port Arthur massacre (Australia)",
+        0
+      ]
+    ],
+    "source_split": "dev"
+  },
+  {
+    "id": "5a8303c255429954d2e2ec01",
+    "dataset": "hotpotqa",
+    "question": "The Plymouth fury produced from 1955 to 1989  was replaced by what for police and fleet applications?",
+    "answers": [
+      "Chrysler K platform"
+    ],
+    "answer": "Chrysler K platform",
+    "type": "bridge",
+    "level": "hard",
+    "supporting_titles": [
+      "Chrysler F platform",
+      "Plymouth Fury"
+    ],
+    "supporting_facts": [
+      [
+        "Chrysler F platform",
+        4
+      ],
+      [
+        "Plymouth Fury",
+        0
+      ]
+    ],
+    "source_split": "dev"
+  },
+  {
+    "id": "5ae09d6155429945ae9593d4",
+    "dataset": "hotpotqa",
+    "question": "Lee Sung-jae stars in the film Barking Dogs Never Bite which is what film genre?",
+    "answers": [
+      "comedy-drama"
+    ],
+    "answer": "comedy-drama",
+    "type": "bridge",
+    "level": "hard",
+    "supporting_titles": [
+      "Barking Dogs Never Bite",
+      "Lee Sung-jae"
+    ],
+    "supporting_facts": [
+      [
+        "Lee Sung-jae",
+        1
+      ],
+      [
+        "Barking Dogs Never Bite",
+        0
+      ]
+    ],
+    "source_split": "dev"
+  },
+  {
+    "id": "5a72b2dc5542992359bc3173",
+    "dataset": "hotpotqa",
+    "question": "What is the name of the actor who wrote the memoir Without you: A memoir of love, loss, and the Musical Rent and also stared as Mark Cohen in the Broadway production of \"Rent\"?",
+    "answers": [
+      "Anthony Rapp"
+    ],
+    "answer": "Anthony Rapp",
+    "type": "bridge",
+    "level": "hard",
+    "supporting_titles": [
+      "Anthony Rapp",
+      "Without You (book)"
+    ],
+    "supporting_facts": [
+      [
+        "Without You (book)",
+        0
+      ],
+      [
+        "Anthony Rapp",
+        0
+      ]
+    ],
+    "source_split": "dev"
+  },
+  {
+    "id": "5abe2b0155429976d4830a83",
+    "dataset": "hotpotqa",
+    "question": "Max Hoffmann along with Hindenburg and Ludendorff, masterminded the devastating defeat of the Russian armies in a battle fought when ?",
+    "answers": [
+      "26–30 August 1914"
+    ],
+    "answer": "26–30 August 1914",
+    "type": "bridge",
+    "level": "hard",
+    "supporting_titles": [
+      "Battle of Tannenberg",
+      "Max Hoffmann"
+    ],
+    "supporting_facts": [
+      [
+        "Max Hoffmann",
+        2
+      ],
+      [
+        "Battle of Tannenberg",
+        0
+      ]
+    ],
+    "source_split": "dev"
+  },
+  {
+    "id": "5a73b2cb55429908901be31a",
+    "dataset": "hotpotqa",
+    "question": "The members of the von Trapp musical group are related to which woman who wrote \"The Story of the Trapp Family Singers\"?",
+    "answers": [
+      "Maria von Trapp"
+    ],
+    "answer": "Maria von Trapp",
+    "type": "bridge",
+    "level": "hard",
+    "supporting_titles": [
+      "Maria von Trapp",
+      "The von Trapps"
+    ],
+    "supporting_facts": [
+      [
+        "The von Trapps",
+        1
+      ],
+      [
+        "Maria von Trapp",
+        1
+      ]
+    ],
+    "source_split": "dev"
+  },
+  {
+    "id": "5ab82bbb5542990e739ec84c",
+    "dataset": "hotpotqa",
+    "question": "Which genus has more species Babiana or Ceratophyllum ?",
+    "answers": [
+      "Babiana"
+    ],
+    "answer": "Babiana",
+    "type": "comparison",
+    "level": "hard",
+    "supporting_titles": [
+      "Babiana",
+      "Ceratophyllum"
+    ],
+    "supporting_facts": [
+      [
+        "Babiana",
+        0
+      ],
+      [
+        "Ceratophyllum",
+        0
+      ]
+    ],
+    "source_split": "dev"
+  },
+  {
+    "id": "5ab83d595542990e739ec886",
+    "dataset": "hotpotqa",
+    "question": "The VMAQT-1 logo is a female spirit in Irish mythology who heralds the death of what?",
+    "answers": [
+      "a family member"
+    ],
+    "answer": "a family member",
+    "type": "bridge",
+    "level": "hard",
+    "supporting_titles": [
+      "Banshee",
+      "VMAQT-1"
+    ],
+    "supporting_facts": [
+      [
+        "VMAQT-1",
+        2
+      ],
+      [
+        "Banshee",
+        0
+      ]
+    ],
+    "source_split": "dev"
+  },
+  {
+    "id": "5ae075455542993d6555eb59",
+    "dataset": "hotpotqa",
+    "question": "Are 111 Murray Street and 220 Central Park South both located in Manhattan?",
+    "answers": [
+      "yes"
+    ],
+    "answer": "yes",
+    "type": "comparison",
+    "level": "hard",
+    "supporting_titles": [
+      "111 Murray Street",
+      "220 Central Park South"
+    ],
+    "supporting_facts": [
+      [
+        "111 Murray Street",
+        0
+      ],
+      [
+        "220 Central Park South",
+        1
+      ]
+    ],
+    "source_split": "dev"
+  }
+]

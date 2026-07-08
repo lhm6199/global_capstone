@@ -258,6 +258,81 @@ ninja
 
 따라서 다음 세 가지를 모두 확인해야 합니다.
 
+---
+
+# HotpotQA Dev Full Experiment
+
+HotpotQA dev 전체에 대해 `simple RAG`와 `MiniRAG`를 같은 AWQ 생성기 위에서 비교하려면 raw dataset을 먼저 배치합니다.
+
+필요 파일:
+
+```text
+data/raw/hotpot/hotpot_dev_fullwiki_v1.json
+```
+
+MiniRAG 관련 Python 패키지는 별도 파일로 설치합니다.
+
+```bash
+python -m pip install -r requirements-minirag.txt
+```
+
+HotpotQA dev 실험 전체 순서는 아래 스크립트로 고정했습니다.
+
+```bash
+bash scripts/run_hotpot_dev_pipeline.sh \
+  .venv-rag/bin/python \
+  model/qwen3-4b-w4-g128-awq-v2.pt \
+  qwen3-4b-awq-runtime
+```
+
+단계별로 따로 실행하려면:
+
+```bash
+bash scripts/build_hotpot_eval_30.sh .venv-rag/bin/python
+bash scripts/build_hotpot_full_corpus.sh .venv-rag/bin/python
+bash scripts/build_hotpot_faiss_index.sh .venv-rag/bin/python
+bash scripts/build_hotpot_minirag_index.sh .venv-rag/bin/python model/qwen3-4b-w4-g128-awq-v2.pt qwen3-4b-awq-runtime
+bash scripts/run_hotpot_compare.sh .venv-rag/bin/python model/qwen3-4b-w4-g128-awq-v2.pt qwen3-4b-awq-runtime
+```
+
+각 단계의 산출물은 다음과 같습니다.
+
+```text
+data/eval/hotpot_stratified_30.json
+    HotpotQA dev 30문항 평가셋
+
+data/indexes/hotpotqa_dev_bge_base/chunks.jsonl
+data/indexes/hotpotqa_dev_bge_base/faiss.index
+    simple RAG용 full-dev paragraph corpus / FAISS index
+
+data/indexes/minirag_hotpotqa_dev_bge_base/
+    MiniRAG graph / KV / vector artifacts
+
+outputs/hotpotqa_backend_compare.json
+outputs/hotpotqa_backend_compare_summary.md
+    backend별 개별 응답 로그와 집계 표
+```
+
+`outputs/hotpotqa_backend_compare.json`의 각 row에는 아래 정보가 모두 기록됩니다.
+
+```text
+dataset
+backend
+query_id
+question
+gold_answers
+query_metadata
+context
+prompt
+retrieved
+answer
+retrieval_metrics
+generation_metrics
+correctness_metrics
+```
+
+따라서 추후 분석 시 raw 질문 파일을 다시 뒤지지 않고도, 이 결과 파일만으로 품질/지연시간/히트율 비교를 다시 집계할 수 있습니다.
+
 ```text
 1. PyTorch에서 CUDA 사용 가능
 2. nvcc 사용 가능
