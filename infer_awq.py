@@ -8,6 +8,8 @@ import torch.nn.functional as F
 from accelerate import init_empty_weights, load_checkpoint_in_model
 from transformers import AutoConfig, AutoModelForCausalLM, AutoTokenizer
 
+from rag import RagChatTurn, RagPromptBuilder, RagRetriever, build_rag_metrics, print_metrics
+
 
 FALLBACK_OP_PROFILE = False
 FALLBACK_OP_TIMINGS = {
@@ -287,6 +289,25 @@ def build_inputs(tokenizer, prompt, device):
     return tokenizer(text, return_tensors="pt").to(device)
 
 
+def build_rag_pipeline(args):
+    if not args.rag_index_dir:
+        return None
+
+    retriever = RagRetriever.from_index_dir(
+        args.rag_index_dir,
+        args.embedding_model,
+        batch_size=args.rag_embedding_batch_size,
+        local_files_only=args.rag_local_files_only,
+        device=args.rag_device,
+    )
+    prompt_builder = RagPromptBuilder.from_file(args.rag_prompt_template)
+    return RagChatTurn(
+        retriever=retriever,
+        prompt_builder=prompt_builder,
+        top_k=args.rag_top_k,
+    )
+
+
 def main(argv=None, default_awq_backend="auto"):
     parser = argparse.ArgumentParser(
         description="Run packed AWQ INT4 inference."
@@ -324,6 +345,38 @@ def main(argv=None, default_awq_backend="auto"):
             "When using torch_fallback, synchronize and print accumulated "
             "dequantize/F.linear timings. This adds measurement overhead."
         ),
+    )
+    parser.add_argument(
+        "--rag_index_dir",
+        default=None,
+        help="Enable RAG by loading chunks.jsonl and faiss.index from this directory.",
+    )
+    parser.add_argument("--rag_top_k", type=int, default=3)
+    parser.add_argument(
+        "--rag_prompt_template",
+        default=None,
+        help="Optional prompt template file. Defaults to rag/templates/default_rag_prompt.txt.",
+    )
+    parser.add_argument(
+        "--embedding_model",
+        default="BAAI/bge-base-en-v1.5",
+        help="Sentence-transformers model used for retrieval query embedding.",
+    )
+    parser.add_argument(
+        "--rag_embedding_batch_size",
+        type=int,
+        default=32,
+        help="Batch size for sentence-transformers encoding.",
+    )
+    parser.add_argument(
+        "--rag_local_files_only",
+        action="store_true",
+        help="Load the embedding model from local cache only.",
+    )
+    parser.add_argument(
+        "--rag_device",
+        default=None,
+        help="Optional device override for retrieval embeddings, e.g. cpu or cuda.",
     )
     args = parser.parse_args(argv)
 
@@ -382,8 +435,16 @@ def main(argv=None, default_awq_backend="auto"):
         else:
             print("--cache_dequantized_weights is ignored with --awq_backend kernel.")
 
+    rag_chat = build_rag_pipeline(args)
+    turn = None
+    prompt = args.prompt
+    if rag_chat:
+        with measure_step(timings, "rag_prepare"):
+            turn = rag_chat.prepare(args.prompt)
+        prompt = turn["prompt"]
+
     with measure_step(timings, "build_inputs", device):
-        inputs = build_inputs(tokenizer, args.prompt, device)
+        inputs = build_inputs(tokenizer, prompt, device)
 
     generate_kwargs = {
         "max_new_tokens": args.max_new_tokens,
@@ -405,6 +466,15 @@ def main(argv=None, default_awq_backend="auto"):
     if not args.no_timing:
         print(f"awq_backend: {awq_backend}")
         print_timings(timings, generated_token_count=generated_ids.numel())
+        if turn is not None:
+            print_metrics(
+                build_rag_metrics(
+                    tokenizer,
+                    turn,
+                    answer_tokens=generated_ids.numel(),
+                    rag_prepare_s=timings["rag_prepare"],
+                )
+            )
 
 
 if __name__ == "__main__":

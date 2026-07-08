@@ -1,10 +1,12 @@
 import argparse
+import time
 
 import torch
 from accelerate import init_empty_weights, load_checkpoint_in_model
 from transformers import AutoConfig, AutoModelForCausalLM, AutoTokenizer
 
 from infer_awq import (
+    build_inputs,
     cache_dequantized_weights,
     measure_step,
     normalize_hf_model_path,
@@ -13,6 +15,7 @@ from infer_awq import (
     print_timings,
     replace_decoder_linears_with_awq,
 )
+from rag import RagChatTurn, RagPromptBuilder, RagRetriever, build_rag_metrics, print_metrics
 
 
 def build_chat_inputs(tokenizer, messages, device):
@@ -37,6 +40,21 @@ def trim_history(messages, max_turns):
     system_messages = [message for message in messages if message["role"] == "system"]
     chat_messages = [message for message in messages if message["role"] != "system"]
     return system_messages + chat_messages[-max_turns * 2 :]
+
+
+def build_rag_pipeline(args):
+    if not args.rag_index_dir:
+        return None
+
+    retriever = RagRetriever.from_index_dir(
+        args.rag_index_dir,
+        args.embedding_model,
+        batch_size=args.rag_embedding_batch_size,
+        local_files_only=args.rag_local_files_only,
+        device=args.rag_device,
+    )
+    prompt_builder = RagPromptBuilder.from_file(args.rag_prompt_template)
+    return RagChatTurn(retriever=retriever, prompt_builder=prompt_builder, top_k=args.rag_top_k)
 
 
 def load_awq_model(args):
@@ -115,7 +133,30 @@ def generate_reply(model, tokenizer, messages, device, args):
         output_ids = model.generate(**inputs, **generate_kwargs)
 
     generated_ids = output_ids[0, inputs["input_ids"].shape[-1] :]
-    return tokenizer.decode(generated_ids, skip_special_tokens=True).strip()
+    return {
+        "reply": tokenizer.decode(generated_ids, skip_special_tokens=True).strip(),
+        "answer_tokens": int(generated_ids.numel()),
+    }
+
+
+def generate_reply_from_prompt(model, tokenizer, prompt, device, args):
+    inputs = build_inputs(tokenizer, prompt, device)
+    generate_kwargs = {
+        "max_new_tokens": args.max_new_tokens,
+        "do_sample": args.do_sample,
+        "pad_token_id": tokenizer.eos_token_id,
+    }
+    if args.do_sample:
+        generate_kwargs.update({"temperature": args.temperature, "top_p": args.top_p})
+
+    with torch.inference_mode():
+        output_ids = model.generate(**inputs, **generate_kwargs)
+
+    generated_ids = output_ids[0, inputs["input_ids"].shape[-1] :]
+    return {
+        "reply": tokenizer.decode(generated_ids, skip_special_tokens=True).strip(),
+        "answer_tokens": int(generated_ids.numel()),
+    }
 
 
 def main(argv=None):
@@ -158,12 +199,47 @@ def main(argv=None):
         action="store_true",
         help="Disable model loading timing output.",
     )
+    parser.add_argument(
+        "--rag_index_dir",
+        default=None,
+        help="Enable RAG by loading chunks.jsonl and faiss.index from this directory.",
+    )
+    parser.add_argument("--rag_top_k", type=int, default=3)
+    parser.add_argument(
+        "--rag_prompt_template",
+        default=None,
+        help="Optional prompt template file. Defaults to rag/templates/default_rag_prompt.txt.",
+    )
+    parser.add_argument(
+        "--embedding_model",
+        default="BAAI/bge-base-en-v1.5",
+        help="Sentence-transformers model used for retrieval query embedding.",
+    )
+    parser.add_argument(
+        "--rag_embedding_batch_size",
+        type=int,
+        default=32,
+        help="Batch size for sentence-transformers encoding.",
+    )
+    parser.add_argument(
+        "--rag_local_files_only",
+        action="store_true",
+        help="Load the embedding model from local cache only.",
+    )
+    parser.add_argument(
+        "--rag_device",
+        default=None,
+        help="Optional device override for retrieval embeddings, e.g. cpu or cuda.",
+    )
     args = parser.parse_args(argv)
 
     model, tokenizer, device, awq_backend, timings = load_awq_model(args)
+    rag_chat = build_rag_pipeline(args)
     if not args.no_timing:
         print(f"awq_backend: {awq_backend}")
         print_timings(timings)
+    if rag_chat and args.system_prompt:
+        print("RAG mode ignores --system_prompt and prior chat history in the model prompt.")
 
     messages = []
     if args.system_prompt:
@@ -189,9 +265,34 @@ def main(argv=None):
             continue
 
         messages.append({"role": "user", "content": user_text})
-        messages = trim_history(messages, args.history_max_turns)
+        if not rag_chat:
+            messages = trim_history(messages, args.history_max_turns)
 
-        reply = generate_reply(model, tokenizer, messages, device, args)
+        if rag_chat:
+            rag_prepare_started = time.perf_counter()
+            turn = rag_chat.prepare(user_text)
+            rag_prepare_s = time.perf_counter() - rag_prepare_started
+            generation = generate_reply_from_prompt(
+                model,
+                tokenizer,
+                turn["prompt"],
+                device,
+                args,
+            )
+            reply = generation["reply"]
+            if not args.no_timing:
+                print_metrics(
+                    build_rag_metrics(
+                        tokenizer,
+                        turn,
+                        answer_tokens=generation["answer_tokens"],
+                        rag_prepare_s=rag_prepare_s,
+                    )
+                )
+        else:
+            generation = generate_reply(model, tokenizer, messages, device, args)
+            reply = generation["reply"]
+
         messages.append({"role": "assistant", "content": reply})
         print(f"\nAssistant: {reply}")
 

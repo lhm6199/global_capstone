@@ -77,6 +77,10 @@ awq/kernels/setup.py
 
 requirements.txt
     PyTorch를 제외한 Python dependency 목록
+build_rag_index.py
+    already chunked JSONL에서 embeddings / FAISS index 생성
+rag/
+    chat_awq.py와 다른 실행 경로에서 재사용 가능한 RAG 모듈
 
 model/qwen3-4b-w4-g128-awq-v2.pt
     packed AWQ W4A16 checkpoint
@@ -116,6 +120,7 @@ sentencepiece
 protobuf
 numpy
 tqdm
+sentence-transformers
 ```
 
 PyTorch는 `requirements.txt`에 포함하지 않습니다.
@@ -212,6 +217,8 @@ python -m pip install -U pip setuptools wheel ninja
 ```bash
 python -m pip install -r requirements.txt
 ```
+
+Jetson에서 RAG를 사용할 경우 `sentence-transformers` 외에 FAISS도 별도로 준비해야 합니다. `requirements.txt`에는 포함하지 않았고, JetPack/CUDA 환경에 맞는 wheel 또는 소스 빌드를 사용해야 합니다. FAISS가 없으면 인덱스 생성과 retrieval에서 즉시 에러가 발생하도록 구현되어 있습니다.
 
 권장 `requirements.txt`:
 

@@ -8,6 +8,7 @@ __pycache__/
 
 # Virtual environments
 .venv/
+.venv-rag/
 venv/
 env/
 
@@ -42,3 +43,4 @@ awq/kernels/awq_inference_engine.egg-info/
 logs/
 outputs/
 results/
+data/indexes/

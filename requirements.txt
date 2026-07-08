@@ -9,6 +9,7 @@ sentencepiece
 protobuf
 numpy
 tqdm
+sentence-transformers
 
 # awq/kernels build helper
 ninja
