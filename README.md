@@ -14,6 +14,9 @@
 ## 파일 구성
 
 - `infer_awq.py`: 메인 추론 스크립트. backend 선택과 단계별 시간 출력 지원
+- `chat_awq.py`: 멀티턴 채팅 스크립트. 선택적으로 턴별 RAG retrieval 지원
+- `build_rag_index.py`: already chunked JSONL로부터 embeddings와 FAISS index 생성
+- `rag/`: embedding, retrieval, prompting, pipeline으로 나뉜 재사용 가능한 RAG 모듈
 - `infer_awq_no_kernel.py`: 커널을 쓰지 않는 `torch_fallback` 전용 실행 스크립트
 - `awq/kernels/setup.py`: `awq_inference_engine` CUDA 확장 모듈 빌드 스크립트
 - `requirements.txt`: PyTorch를 제외한 Python 의존성 목록
@@ -42,6 +45,14 @@ python -m pip install -r requirements.txt
 - `ninja`, `setuptools`, `wheel`
 - `transformers>=4.51.0`
 - `accelerate>=0.34.2`
+- `sentence-transformers`
+
+FAISS는 플랫폼별 설치 경로가 달라서 `requirements.txt`에 고정하지 않았습니다.
+
+- x86 Linux 예시: `python -m pip install faiss-cpu`
+- Jetson: JetPack/CUDA 환경과 맞는 별도 빌드 또는 배포 패키지 사용
+
+FAISS가 없으면 RAG index build / retrieval 시 명확한 import 에러를 출력합니다.
 
 CUDA 인식 여부 확인:
 
@@ -259,6 +270,52 @@ python infer_awq.py \
 ```
 
 `kernel` backend 조건:
+
+## RAG Index Build
+
+RAG는 이미 chunked 된 JSONL 입력을 전제로 합니다. 각 줄은 최소한 `text` 필드를 가져야 하며, `chunk_id`, `title`, `source`, `metadata`는 선택 필드입니다.
+
+예시:
+
+```json
+{"chunk_id":"lourdes-1","title":"Lourdes","source":"wiki","text":"The Virgin Mary reputedly appeared to Saint Bernadette Soubirous in 1858 at Lourdes, France."}
+```
+
+인덱스 생성:
+
+```bash
+python build_rag_index.py \
+  --chunks-jsonl data/chunks.jsonl \
+  --output-dir data/rag_index \
+  --embedding-model BAAI/bge-base-en-v1.5
+```
+
+출력:
+
+- `data/rag_index/chunks.jsonl`
+- `data/rag_index/embeddings.npy`
+- `data/rag_index/faiss.index`
+
+## RAG Chat
+
+`chat_awq.py`는 `--rag_index_dir`를 주면 매 사용자 턴마다 현재 질문만으로 retrieval을 수행합니다. 이때 모델에 들어가는 최종 프롬프트는 과거 대화 히스토리가 아니라 `retrieved docs + current question`만 포함합니다.
+
+```bash
+python chat_awq.py \
+  --model_path qwen3-4b-awq-runtime \
+  --load_quant model/qwen3-4b-w4-g128-awq-v2.pt \
+  --rag_index_dir data/rag_index \
+  --embedding_model BAAI/bge-base-en-v1.5 \
+  --rag_top_k 3
+```
+
+주요 옵션:
+
+- `--rag_index_dir`: `chunks.jsonl`, `faiss.index`가 있는 디렉토리
+- `--rag_top_k`: 검색할 문서 수
+- `--rag_prompt_template`: 기본 템플릿 대신 사용할 텍스트 파일
+- `--embedding_model`: retrieval query embedding 모델
+- `--rag_local_files_only`: 로컬 캐시에서만 embedding 모델 로드
 
 - `torch.cuda.is_available() == True`
 - `awq_inference_engine` import 성공
