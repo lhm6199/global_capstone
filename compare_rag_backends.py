@@ -20,7 +20,7 @@ Answer:"""
 
 def parse_args(argv=None):
     parser = argparse.ArgumentParser(description="Compare FAISS and MiniRAG backends on RAG eval sets.")
-    parser.add_argument("--dataset", default="squad", choices=["squad", "hotpotqa"])
+    parser.add_argument("--dataset", default="squad", choices=["squad", "hotpotqa", "multihoprag"])
     parser.add_argument("--eval-file", default="data/eval/squad_diverse_30.json")
     parser.add_argument("--rag-index-dir", default="data/indexes/squad_bge_base")
     parser.add_argument(

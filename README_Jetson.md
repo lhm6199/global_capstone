@@ -333,6 +333,64 @@ correctness_metrics
 
 따라서 추후 분석 시 raw 질문 파일을 다시 뒤지지 않고도, 이 결과 파일만으로 품질/지연시간/히트율 비교를 다시 집계할 수 있습니다.
 
+---
+
+# MultiHopRAG Test Pipeline
+
+논문 기준 평가셋에 맞추려면 HotpotQA 대신 공식 MultiHopRAG dataset을 사용합니다.
+
+필요 파일:
+
+```text
+data/raw/multihoprag/MultiHopRAG.json
+data/raw/multihoprag/corpus.json
+```
+
+이 저장소에는 아래 변환 스크립트를 추가했습니다.
+
+```text
+build_multihoprag_eval.py
+    2556개 전체 query를 local eval schema로 변환
+
+build_multihoprag_test_eval.py
+    question_type / answer_type 기준 30문항 test subset 생성
+
+build_multihoprag_corpus.py
+    corpus 609개 문서를 1-document = 1-chunk로 변환
+```
+
+권장 실행 순서:
+
+```bash
+bash scripts/build_multihoprag_eval_full.sh .venv-rag/bin/python
+bash scripts/build_multihoprag_test_30.sh .venv-rag/bin/python
+bash scripts/build_multihoprag_full_corpus.sh .venv-rag/bin/python
+bash scripts/build_multihoprag_faiss_index.sh .venv-rag/bin/python
+bash scripts/build_multihoprag_minirag_index.sh .venv-rag/bin/python model/qwen3-4b-w4-g128-awq-v2.pt qwen3-4b-awq-runtime
+bash scripts/run_multihoprag_compare.sh .venv-rag/bin/python model/qwen3-4b-w4-g128-awq-v2.pt qwen3-4b-awq-runtime
+```
+
+한 번에 돌리려면:
+
+```bash
+bash scripts/run_multihoprag_test_pipeline.sh \
+  .venv-rag/bin/python \
+  model/qwen3-4b-w4-g128-awq-v2.pt \
+  qwen3-4b-awq-runtime
+```
+
+산출물:
+
+```text
+data/eval/multihoprag_eval_full.json
+data/eval/multihoprag_test_30.json
+data/indexes/multihoprag_bge_base/chunks.jsonl
+data/indexes/multihoprag_bge_base/faiss.index
+data/indexes/minirag_multihoprag_bge_base/
+outputs/multihoprag_backend_compare.json
+outputs/multihoprag_backend_compare_summary.md
+```
+
 ```text
 1. PyTorch에서 CUDA 사용 가능
 2. nvcc 사용 가능
