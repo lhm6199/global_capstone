@@ -1,0 +1,302 @@
+[
+  {
+    "id": "56cec9e1aab44d1400b88a62",
+    "title": "2008_Sichuan_earthquake",
+    "question": "What did the US share?",
+    "answers": [
+      "satellite images of the quake-stricken areas"
+    ],
+    "context": "On May 16, rescue groups from South Korea, Japan, Singapore, Russia and Taiwan arrived to join the rescue effort. The United States shared some of its satellite images of the quake-stricken areas with Chinese authorities. During the weekend, the US sent into China two U.S. Air Force C-17's carrying supplies, which included tents and generators. Xinhua reported 135,000 Chinese troops and medics were involved in the rescue effort across 58 counties and cities.",
+    "source_chunk_id": "squad-train:article:0010:paragraph:0050"
+  },
+  {
+    "id": "5726a950dd62a815002e8c4b",
+    "title": "Alloy",
+    "question": "When was the bronze age?",
+    "answers": [
+      "prehistoric period"
+    ],
+    "context": "Alloying a metal is done by combining it with one or more other metals or non-metals that often enhance its properties. For example, steel is stronger than iron, its primary element. The electrical and thermal conductivity of alloys is usually lower than that of the pure metals. The physical properties, such as density, reactivity, Young's modulus of an alloy may not differ greatly from those of its elements, but engineering properties such as tensile strength and shear strength may be substantially different from those of the constituent materials. This is sometimes a result of the sizes of the atoms in the alloy, because larger atoms exert a compressive force on neighboring atoms, and smaller atoms exert a tensile force on their neighbors, helping the alloy resist deformation. Sometimes alloys may exhibit marked differences in behavior even when small amounts of one element are present. For example, impurities in semiconducting ferromagnetic alloys lead to different properties, as first predicted by White, Hogan, Suhl, Tian Abrie and Nakamura. Some alloys are made by melting and mixing two or more metals. Bronze, an alloy of copper and tin, was the first alloy discovered, during the prehistoric period now known as the bronze age; it was harder than pure copper and originally used to make tools and weapons, but was later superseded by metals and alloys with better properties. In later times bronze has been used for ornaments, bells, statues, and bearings. Brass is an alloy made from copper and zinc.",
+    "source_chunk_id": "squad-train:article:0240:paragraph:0008"
+  },
+  {
+    "id": "56e4878a39bdeb140034797a",
+    "title": "Architecture",
+    "question": "What style is Gothic?",
+    "answers": [
+      "pan-European"
+    ],
+    "context": "The major architectural undertakings were the buildings of abbeys and cathedrals. From about 900 CE onwards, the movements of both clerics and tradesmen carried architectural knowledge across Europe, resulting in the pan-European styles Romanesque and Gothic.",
+    "source_chunk_id": "squad-train:article:0038:paragraph:0016"
+  },
+  {
+    "id": "56de826ccffd8e1900b4b9ad",
+    "title": "BBC_Television",
+    "question": "When was Ceefax launched?",
+    "answers": [
+      "1974"
+    ],
+    "context": "The BBC also introduced Ceefax, the first teletext service, starting in 1974. This service allows BBC viewers to view textual information such as the latest news on their television. CEEFAX has not made a full transition to digital television, instead being replaced by the new interactive BBCi service.",
+    "source_chunk_id": "squad-train:article:0041:paragraph:0021"
+  },
+  {
+    "id": "572661d4708984140094c433",
+    "title": "Botany",
+    "question": "What is botany?",
+    "answers": [
+      "science of plant life"
+    ],
+    "context": "Botany, also called plant science(s) or plant biology, is the science of plant life and a branch of biology. A botanist or plant scientist is a scientist who specializes in this field. The term \"botany\" comes from the Ancient Greek word βοτάνη (botanē) meaning \"pasture\", \"grass\", or \"fodder\"; βοτάνη is in turn derived from βόσκειν (boskein), \"to feed\" or \"to graze\". Traditionally, botany has also included the study of fungi and algae by mycologists and phycologists respectively, with the study of these three groups of organisms remaining within the sphere of interest of the International Botanical Congress. Nowadays, botanists study approximately 400,000 species of living organisms of which some 260,000 species are vascular plants and about 248,000 are flowering plants.",
+    "source_chunk_id": "squad-train:article:0222:paragraph:0000"
+  },
+  {
+    "id": "56ddec6666d3e219004dae10",
+    "title": "Cardinal_(Catholicism)",
+    "question": "Who decreed this?",
+    "answers": [
+      "Pope Urban VIII"
+    ],
+    "context": "In 1630, Pope Urban VIII decreed their title to be Eminence (previously, it had been \"illustrissimo\" and \"reverendissimo\")  and decreed that their secular rank would equate to Prince, making them secondary only to the Pope and crowned monarchs.",
+    "source_chunk_id": "squad-train:article:0034:paragraph:0010"
+  },
+  {
+    "id": "57270465f1498d1400e8f24d",
+    "title": "Comcast",
+    "question": "Who co-founded Comcast?",
+    "answers": [
+      "Ralph Roberts"
+    ],
+    "context": "Comcast is sometimes described as a family business. Brian L. Roberts, Chairman, President, and CEO of Comcast, is son of co-founder Ralph Roberts. Roberts owns or controls just over 1% of all Comcast shares but all of the Class B supervoting shares, which gives him an \"undilutable 33% voting power over the company\". Legal expert Susan P. Crawford has said this gives him \"effective control over its [Comcast's] every step\". In 2010, he was one of the highest-paid executives in the United States, with total compensation of about $31 million.",
+    "source_chunk_id": "squad-train:article:0267:paragraph:0003"
+  },
+  {
+    "id": "5726d8b6dd62a815002e925f",
+    "title": "Cubism",
+    "question": "Who published Du \"Cubisme\"?",
+    "answers": [
+      "Eugène Figuière"
+    ],
+    "context": "It was against this background of public anger that Jean Metzinger and Albert Gleizes wrote Du \"Cubisme\" (published by Eugène Figuière in 1912, translated to English and Russian in 1913). Among the works exhibited were Le Fauconnier's vast composition Les Montagnards attaqués par des ours (Mountaineers Attacked by Bears) now at Rhode Island School of Design Museum, Joseph Csaky's Deux Femme, Two Women (a sculpture now lost), in addition to the highly abstract paintings by Kupka, Amorpha (The National Gallery, Prague), and Picabia, La Source, The Spring (Museum of Modern Art, New York).",
+    "source_chunk_id": "squad-train:article:0238:paragraph:0017"
+  },
+  {
+    "id": "57283f713acd2414000df7b7",
+    "title": "Dissolution_of_the_Soviet_Union",
+    "question": "Who was recalled?",
+    "answers": [
+      "Russian deputies"
+    ],
+    "context": "On December 12, the Supreme Soviet of the Russian SFSR formally ratified the Belavezha Accords and renounced the 1922 Union Treaty. The Russian deputies were also recalled from the Supreme Soviet of the USSR. The legality of this action was questionable, since Soviet law did not allow a republic to unilaterally recall its deputies. However, no one in either Russia or the Kremlin objected. Any objections from the latter would have likely had no effect, since the Soviet government had effectively been rendered impotent long before December. In effect, the largest and most powerful republic had seceded from the Union. Later that day, Gorbachev hinted for the first time that he was considering stepping down.",
+    "source_chunk_id": "squad-train:article:0277:paragraph:0061"
+  },
+  {
+    "id": "57100daba58dae1900cd6823",
+    "title": "Elizabeth_II",
+    "question": "When did Diana die?",
+    "answers": [
+      "1997"
+    ],
+    "context": "In 1997, a year after the divorce, Diana was killed in a car crash in Paris. The Queen was on holiday with her extended family at Balmoral. Diana's two sons by Charles—Princes William and Harry—wanted to attend church and so the Queen and Prince Philip took them that morning. After that single public appearance, for five days the Queen and the Duke shielded their grandsons from the intense press interest by keeping them at Balmoral where they could grieve in private, but the royal family's seclusion and the failure to fly a flag at half-mast over Buckingham Palace caused public dismay. Pressured by the hostile reaction, the Queen agreed to return to London and do a live television broadcast on 5 September, the day before Diana's funeral. In the broadcast, she expressed admiration for Diana and her feelings \"as a grandmother\" for the two princes. As a result, much of the public hostility evaporated.",
+    "source_chunk_id": "squad-train:article:0169:paragraph:0032"
+  },
+  {
+    "id": "570c49c2fed7b91900d45839",
+    "title": "FC_Barcelona",
+    "question": "When was Barcelona founded?",
+    "answers": [
+      "1899"
+    ],
+    "context": "Founded in 1899 by a group of Swiss, English and Catalan footballers led by Joan Gamper, the club has become a symbol of Catalan culture and Catalanism, hence the motto \"Més que un club\" (More than a club). Unlike many other football clubs, the supporters own and operate Barcelona. It is the second most valuable sports team in the world, worth $3.16 billion, and the world's second richest football club in terms of revenue, with an annual turnover of €560.8 million. The official Barcelona anthem is the \"Cant del Barça\", written by Jaume Picas and Josep Maria Espinàs.",
+    "source_chunk_id": "squad-train:article:0134:paragraph:0020"
+  },
+  {
+    "id": "56f8a1fa9e9bad19000a0214",
+    "title": "Gene",
+    "question": "What are codons?",
+    "answers": [
+      "a series of three-nucleotide sequences"
+    ],
+    "context": "The expression of genes encoded in DNA begins by transcribing the gene into RNA, a second type of nucleic acid that is very similar to DNA, but whose monomers contain the sugar ribose rather than deoxyribose. RNA also contains the base uracil in place of thymine. RNA molecules are less stable than DNA and are typically single-stranded. Genes that encode proteins are composed of a series of three-nucleotide sequences called codons, which serve as the \"words\" in the genetic \"language\". The genetic code specifies the correspondence during protein translation between codons and amino acids. The genetic code is nearly the same for all known organisms.:4.1",
+    "source_chunk_id": "squad-train:article:0092:paragraph:0012"
+  },
+  {
+    "id": "57096282200fba1400367f1f",
+    "title": "Grape",
+    "question": "What color are white grapes?",
+    "answers": [
+      "green"
+    ],
+    "context": "Grapes are a type of fruit that grow in clusters of 15 to 300, and can be crimson, black, dark blue, yellow, green, orange, and pink. \"White\" grapes are actually green in color, and are evolutionarily derived from the purple grape. Mutations in two regulatory genes of white grapes turn off production of anthocyanins, which are responsible for the color of purple grapes. Anthocyanins and other pigment chemicals of the larger family of polyphenols in purple grapes are responsible for the varying shades of purple in red wines. Grapes are typically an ellipsoid shape resembling a prolate spheroid.",
+    "source_chunk_id": "squad-train:article:0123:paragraph:0000"
+  },
+  {
+    "id": "572777c4708984140094de62",
+    "title": "Heian_period",
+    "question": "What does the word \"bushi\" mean?",
+    "answers": [
+      "warrior"
+    ],
+    "context": "Shōen holders had access to manpower and, as they obtained improved military technology (such as new training methods, more powerful bows, armor, horses, and superior swords) and faced worsening local conditions in the ninth century, military service became part of shōen life. Not only the shōen but also civil and religious institutions formed private guard units to protect themselves. Gradually, the provincial upper class was transformed into a new military elite based on the ideals of the bushi (warrior) or samurai (literally, one who serves).",
+    "source_chunk_id": "squad-train:article:0275:paragraph:0011"
+  },
+  {
+    "id": "5735f8bc012e2f140011a108",
+    "title": "Hunting",
+    "question": "Mrigavyadha means what?",
+    "answers": [
+      "deer hunter"
+    ],
+    "context": "Hindu scriptures describe hunting as an acceptable occupation, as well as a sport of the kingly. Even figures considered godly are described to have engaged in hunting. One of the names of the god Shiva is Mrigavyadha, which translates as \"the deer hunter\" (mriga means deer; vyadha means hunter). The word Mriga, in many Indian languages including Malayalam, not only stands for deer, but for all animals and animal instincts (Mriga Thrishna). Shiva, as Mrigavyadha, is the one who destroys the animal instincts in human beings. In the epic Ramayana, Dasharatha, the father of Rama, is said to have the ability to hunt in the dark. During one of his hunting expeditions, he accidentally killed Shravana, mistaking him for game. During Rama's exile in the forest, Ravana kidnapped his wife, Sita, from their hut, while Rama was asked by Sita to capture a golden deer, and his brother Lakshman went after him. According to the Mahabharat, Pandu, the father of the Pandavas, accidentally killed the sage Kindama and his wife with an arrow, mistaking them for a deer. Krishna is said to have died after being accidentally wounded by an arrow of a hunter.",
+    "source_chunk_id": "squad-train:article:0440:paragraph:0008"
+  },
+  {
+    "id": "570baa0f6b8089140040f9ce",
+    "title": "Infrared",
+    "question": "What is the IrDA?",
+    "answers": [
+      "the Infrared Data Association"
+    ],
+    "context": "IR data transmission is also employed in short-range communication among computer peripherals and personal digital assistants. These devices usually conform to standards published by IrDA, the Infrared Data Association. Remote controls and IrDA devices use infrared light-emitting diodes (LEDs) to emit infrared radiation that is focused by a plastic lens into a narrow beam. The beam is modulated, i.e. switched on and off, to encode the data. The receiver uses a silicon photodiode to convert the infrared radiation to an electric current. It responds only to the rapidly pulsing signal created by the transmitter, and filters out slowly changing infrared radiation from ambient light. Infrared communications are useful for indoor use in areas of high population density. IR does not penetrate walls and so does not interfere with other devices in adjoining rooms. Infrared is the most common way for remote controls to command appliances. Infrared remote control protocols like RC-5, SIRC, are used to communicate with infrared.",
+    "source_chunk_id": "squad-train:article:0147:paragraph:0016"
+  },
+  {
+    "id": "56cf4da7aab44d1400b88f86",
+    "title": "Kanye_West",
+    "question": "What year was Kanye born?",
+    "answers": [
+      "1977"
+    ],
+    "context": "Kanye Omari West (/ˈkɑːnjeɪ/; born June 8, 1977) is an American hip hop recording artist, record producer, rapper, fashion designer, and entrepreneur. He is among the most acclaimed musicians of the 21st century, attracting both praise and controversy for his work and his outspoken public persona.",
+    "source_chunk_id": "squad-train:article:0017:paragraph:0000"
+  },
+  {
+    "id": "56dfc1797aa994140058e12c",
+    "title": "Lighting",
+    "question": "Where is PLASA based?",
+    "answers": [
+      "UK"
+    ],
+    "context": "The Professional Lighting And Sound Association (PLASA) is a UK-based trade organisation representing the 500+ individual and corporate members drawn from the technical services sector. Its members include manufacturers and distributors of stage and entertainment lighting, sound, rigging and similar products and services, and affiliated professionals in the area. They lobby for and represent the interests of the industry at various levels, interacting with government and regulating bodies and presenting the case for the entertainment industry. Example subjects of this representation include the ongoing review of radio frequencies (which may or may not affect the radio bands in which wireless microphones and other devices use) and engaging with the issues surrounding the introduction of the RoHS (Restriction of Hazardous Substances Directive) regulations.",
+    "source_chunk_id": "squad-train:article:0036:paragraph:0056"
+  },
+  {
+    "id": "56dee668c65bf219000b3e01",
+    "title": "Materialism",
+    "question": "What is hyle?",
+    "answers": [
+      "matter"
+    ],
+    "context": "The nature and definition of matter - like other key concepts in science and philosophy - have occasioned much debate. Is there a single kind of matter (hyle) which everything is made of, or multiple kinds? Is matter a continuous substance capable of expressing multiple forms (hylomorphism), or a number of discrete, unchanging constituents (atomism)? Does it have intrinsic properties (substance theory), or is it lacking them (prima materia)?",
+    "source_chunk_id": "squad-train:article:0046:paragraph:0016"
+  },
+  {
+    "id": "5731525ca5e9cc1400cdbe78",
+    "title": "Mosaic",
+    "question": "In what country is Butrint?",
+    "answers": [
+      "Albania"
+    ],
+    "context": "The mosaic pavement of the Vrina Plain basilica of Butrint, Albania appear to pre-date that of the Baptistery by almost a generation, dating to the last quarter of the 5th or the first years of the 6th century. The mosaic displays a variety of motifs including sea-creatures, birds, terrestrial beasts, fruits, flowers, trees and abstracts – designed to depict a terrestrial paradise of God’s creation. Superimposed on this scheme are two large tablets, tabulae ansatae, carrying inscriptions. A variety of fish, a crab, a lobster, shrimps, mushrooms, flowers, a stag and two cruciform designs surround the smaller of the two inscriptions, which reads: In fulfilment of the vow (prayer) of those whose names God knows. This anonymous dedicatory inscription is a public demonstration of the benefactors’ humility and an acknowledgement of God’s omniscience.",
+    "source_chunk_id": "squad-train:article:0422:paragraph:0011"
+  },
+  {
+    "id": "5705eb4352bb8914006896a5",
+    "title": "New_Delhi",
+    "question": "On what plain is New Delhi located?",
+    "answers": [
+      "the Indo-Gangetic Plain"
+    ],
+    "context": "With a total area of 42.7 km2 (16.5 sq mi), New Delhi forms a small part of the Delhi metropolitan area. Because the city is located on the Indo-Gangetic Plain, there is little difference in elevation across the city. New Delhi and surrounding areas were once a part of the Aravalli Range; all that is left of those mountains is the Delhi Ridge, which is also called the Lungs of Delhi. While New Delhi lies on the floodplains of the Yamuna River, it is essentially a landlocked city. East of the river is the urban area of Shahdara. New Delhi falls under the seismic zone-IV, making it vulnerable to earthquakes.",
+    "source_chunk_id": "squad-train:article:0107:paragraph:0011"
+  },
+  {
+    "id": "570e67880dc6ce1900205027",
+    "title": "Order_of_the_British_Empire",
+    "question": "Who were MBE'S?",
+    "answers": [
+      "The members of The Beatles"
+    ],
+    "context": "The members of The Beatles were made MBEs in 1965. John Lennon justified the comparative merits of his investiture by comparing military membership in the Order: \"Lots of people who complained about us receiving the MBE [status] received theirs for heroism in the war – for killing people… We received ours for entertaining other people. I'd say we deserve ours more.\" Lennon later returned his MBE insignia on 25 November 1969 as part of his ongoing peace protests. Other criticism centres on the claim that many recipients of the Order are being rewarded with honours for simply doing their jobs; critics claim that the civil service and judiciary receive far more orders and honours than leaders of other professions.",
+    "source_chunk_id": "squad-train:article:0166:paragraph:0005"
+  },
+  {
+    "id": "57097da1ed30961900e84207",
+    "title": "Pitch_(music)",
+    "question": "The jnd is typically tested by?",
+    "answers": [
+      "playing two tones in quick succession"
+    ],
+    "context": "The just-noticeable difference (jnd) (the threshold at which a change is perceived) depends on the tone's frequency content. Below 500 Hz, the jnd is about 3 Hz for sine waves, and 1 Hz for complex tones; above 1000 Hz, the jnd for sine waves is about 0.6% (about 10 cents). The jnd is typically tested by playing two tones in quick succession with the listener asked if there was a difference in their pitches. The jnd becomes smaller if the two tones are played simultaneously as the listener is then able to discern beat frequencies. The total number of perceptible pitch steps in the range of human hearing is about 1,400; the total number of notes in the equal-tempered scale, from 16 to 16,000 Hz, is 120.",
+    "source_chunk_id": "squad-train:article:0116:paragraph:0006"
+  },
+  {
+    "id": "572fe742947a6a140053cdd0",
+    "title": "Premier_League",
+    "question": "When will this extension end?",
+    "answers": [
+      "through the 2021–22 season"
+    ],
+    "context": "The Premier League is broadcast in the United States through NBC Sports. Premier League viewership has increased rapidly, with NBC and NBCSN averaging a record 479,000 viewers in the 2014–15 season, up 118% from 2012–13 when coverage still aired on Fox Soccer and ESPN/ESPN2 (220,000 viewers), and NBC Sports has been widely praised for its coverage. NBC Sports reached a six-year extension with the Premier League in 2015 to broadcast the league through the 2021–22 season in a deal valued at $1 billion (£640 million).",
+    "source_chunk_id": "squad-train:article:0394:paragraph:0028"
+  },
+  {
+    "id": "572e8f7803f98919007567a1",
+    "title": "Railway_electrification_system",
+    "question": "What is speed limit for railways?",
+    "answers": [
+      "variable speeds"
+    ],
+    "context": "Railways must operate at variable speeds. Until the mid 1980s this was only practical with the brush-type DC motor, although such DC can be supplied from an AC catenary via on-board electric power conversion. Since such conversion was not well developed in the late 19th century and early 20th century, most early electrified railways used DC and many still do, particularly rapid transit (subways) and trams. Speed was controlled by connecting the traction motors in various series-parallel combinations, by varying the traction motors' fields, and by inserting and removing starting resistances to limit motor current.",
+    "source_chunk_id": "squad-train:article:0366:paragraph:0004"
+  },
+  {
+    "id": "56e0a534231d4119001ac319",
+    "title": "Russian_Soviet_Federative_Socialist_Republic",
+    "question": "Who lost power in 1964?",
+    "answers": [
+      "Nikita Khrushchev"
+    ],
+    "context": "In 1964, Nikita Khrushchev was removed from his position of power and replaced with Leonid Brezhnev. Under his rule, the Russian SFSR and the rest of the Soviet Union went through an era of stagnation. Even after he died in 1982, the era didn’t end until Mikhail Gorbachev took power and introduced liberal reforms in Soviet society.",
+    "source_chunk_id": "squad-train:article:0054:paragraph:0026"
+  },
+  {
+    "id": "572ecf2fc246551400ce46c3",
+    "title": "Seven_Years%27_War",
+    "question": "Where is Glatz",
+    "answers": [
+      "Glatz (now Kłodzko, Poland) in Silesia"
+    ],
+    "context": "Despite this, the Austrians, under the command of General Laudon, captured Glatz (now Kłodzko, Poland) in Silesia. In the Battle of Liegnitz Frederick scored a strong victory despite being outnumbered three to one. The Russians under General Saltykov and Austrians under General Lacy briefly occupied his capital, Berlin, in October, but could not hold it for long. The end of that year saw Frederick once more victorious, defeating the able Daun in the Battle of Torgau; but he suffered very heavy casualties, and the Austrians retreated in good order.",
+    "source_chunk_id": "squad-train:article:0359:paragraph:0038"
+  },
+  {
+    "id": "572eacbb03f9891900756918",
+    "title": "Spanish_language_in_the_United_States",
+    "question": "Do Cubans speak Spanish in America?",
+    "answers": [
+      "most are fluent in Spanish"
+    ],
+    "context": "Immigration to the United States of Spanish-speaking Cubans began because of Cuba's political instability upon achieving independence. The deposition of Fulgencio Batista's dictatorship and the ascension of Fidel Castro's government in 1959 increased Cuban immigration to the United States, hence there are some one million Cubans in the United States, most settled in southern and central Florida, while other Cubans live in the Northeastern United States; most are fluent in Spanish. In the city of Miami today Spanish is the first language mostly due to Cuban immigration.",
+    "source_chunk_id": "squad-train:article:0367:paragraph:0008"
+  },
+  {
+    "id": "572bd7e52babe914003c2959",
+    "title": "Tennessee",
+    "question": "What nationality was Juan Pardo?",
+    "answers": [
+      "Spanish"
+    ],
+    "context": "The earliest variant of the name that became Tennessee was recorded by Captain Juan Pardo, the Spanish explorer, when he and his men passed through an American Indian village named \"Tanasqui\" in 1567 while traveling inland from South Carolina. In the early 18th century, British traders encountered a Cherokee town named Tanasi (or \"Tanase\") in present-day Monroe County, Tennessee. The town was located on a river of the same name (now known as the Little Tennessee River), and appears on maps as early as 1725. It is not known whether this was the same town as the one encountered by Juan Pardo, although recent research suggests that Pardo's \"Tanasqui\" was located at the confluence of the Pigeon River and the French Broad River, near modern Newport.",
+    "source_chunk_id": "squad-train:article:0356:paragraph:0005"
+  },
+  {
+    "id": "56e78ff500c9c71400d772d2",
+    "title": "Tristan_da_Cunha",
+    "question": "what was the main settlement named?",
+    "answers": [
+      "Edinburgh of the Seven Seas"
+    ],
+    "context": "In 1867, Prince Alfred, Duke of Edinburgh and second son of Queen Victoria, visited the islands. The main settlement, Edinburgh of the Seven Seas, was named in honour of his visit. Lewis Carroll's youngest brother, the Reverend Edwin Heron Dodgson, served as an Anglican missionary and schoolteacher in Tristan da Cunha in the 1880s.",
+    "source_chunk_id": "squad-train:article:0079:paragraph:0005"
+  }
+]

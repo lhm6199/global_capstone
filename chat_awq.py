@@ -2,18 +2,11 @@ import argparse
 import time
 
 import torch
-from accelerate import init_empty_weights, load_checkpoint_in_model
-from transformers import AutoConfig, AutoModelForCausalLM, AutoTokenizer
 
+from awq_runtime import generate_from_prompt, load_awq_runtime, make_runtime_config
 from infer_awq import (
-    build_inputs,
-    cache_dequantized_weights,
     measure_step,
-    normalize_hf_model_path,
-    pick_awq_backend,
-    pick_device,
     print_timings,
-    replace_decoder_linears_with_awq,
 )
 from rag import RagChatTurn, RagPromptBuilder, RagRetriever, build_rag_metrics, print_metrics
 
@@ -59,65 +52,18 @@ def build_rag_pipeline(args):
 
 
 def load_awq_model(args):
-    timings = {}
-    dtype = {
-        "float16": torch.float16,
-        "bfloat16": torch.bfloat16,
-        "float32": torch.float32,
-    }[args.dtype]
-    device = args.device or pick_device()
-    awq_backend = pick_awq_backend(args.awq_backend, device)
-    if awq_backend == "kernel" and not str(device).startswith("cuda"):
-        raise ValueError("--awq_backend kernel requires a CUDA device.")
-
-    model_path = normalize_hf_model_path(args.model_path)
-
-    with measure_step(timings, "load_tokenizer"):
-        tokenizer = AutoTokenizer.from_pretrained(
-            model_path,
-            use_fast=True,
-            trust_remote_code=True,
-        )
-
-    with measure_step(timings, "load_config"):
-        config = AutoConfig.from_pretrained(model_path, trust_remote_code=True)
-
-    with measure_step(timings, "init_empty_model"):
-        with init_empty_weights():
-            model = AutoModelForCausalLM.from_config(
-                config=config,
-                torch_dtype=dtype,
-                trust_remote_code=True,
-            )
-
-    with measure_step(timings, "replace_linear_modules"):
-        replace_decoder_linears_with_awq(
-            model,
-            args.w_bit,
-            args.q_group_size,
-            awq_backend,
-        )
-        model.tie_weights()
-
-    with measure_step(timings, "load_checkpoint_to_device", device):
-        load_checkpoint_in_model(
-            model,
-            checkpoint=args.load_quant,
-            device_map={"": device},
-            offload_state_dict=True,
-        )
-
-    with measure_step(timings, "model_to_eval", device):
-        model = model.to(device).eval()
-
-    if args.cache_dequantized_weights:
-        if awq_backend == "torch_fallback":
-            with measure_step(timings, "cache_dequantized_weights", device):
-                cache_dequantized_weights(model)
-        else:
-            print("--cache_dequantized_weights is ignored with --awq_backend kernel.")
-
-    return model, tokenizer, device, awq_backend, timings
+    config = make_runtime_config(
+        model_path=args.model_path,
+        load_quant=args.load_quant,
+        w_bit=args.w_bit,
+        q_group_size=args.q_group_size,
+        dtype=args.dtype,
+        device=args.device,
+        awq_backend=args.awq_backend,
+        cache_dequantized_weights=args.cache_dequantized_weights,
+        local_files_only=getattr(args, "local_files_only", False),
+    )
+    return load_awq_runtime(config)
 
 
 def generate_reply(model, tokenizer, messages, device, args):
@@ -146,22 +92,17 @@ def generate_reply(model, tokenizer, messages, device, args):
 
 
 def generate_reply_from_prompt(model, tokenizer, prompt, device, args):
-    inputs = build_inputs(tokenizer, prompt, device)
-    generate_kwargs = {
+    generation_config = {
         "max_new_tokens": args.max_new_tokens,
         "do_sample": args.do_sample,
         "pad_token_id": tokenizer.eos_token_id,
     }
     if args.do_sample:
-        generate_kwargs.update({"temperature": args.temperature, "top_p": args.top_p})
-
-    with torch.inference_mode():
-        output_ids = model.generate(**inputs, **generate_kwargs)
-
-    generated_ids = output_ids[0, inputs["input_ids"].shape[-1] :]
+        generation_config.update({"temperature": args.temperature, "top_p": args.top_p})
+    result = generate_from_prompt(model, tokenizer, device, prompt, generation_config)
     return {
-        "reply": tokenizer.decode(generated_ids, skip_special_tokens=True).strip(),
-        "answer_tokens": int(generated_ids.numel()),
+        "reply": result["text"],
+        "answer_tokens": result["answer_tokens"],
     }
 
 

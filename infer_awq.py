@@ -299,7 +299,7 @@ def build_rag_pipeline(args):
         args.rag_index_dir,
         args.embedding_model,
         batch_size=args.rag_embedding_batch_size,
-        local_files_only=args.rag_local_files_only,
+        local_files_only=args.local_files_only or args.rag_local_files_only,
         device=args.rag_device,
     )
     prompt_builder = RagPromptBuilder.from_file(args.rag_prompt_template)
@@ -376,6 +376,11 @@ def main(argv=None, default_awq_backend="auto"):
         help="Load the embedding model from local cache only.",
     )
     parser.add_argument(
+        "--local_files_only",
+        action="store_true",
+        help="Force offline mode for model, tokenizer, and embedding model loading.",
+    )
+    parser.add_argument(
         "--rag_device",
         default=None,
         help="Optional device override for retrieval embeddings, e.g. cpu or cuda.",
@@ -402,16 +407,21 @@ def main(argv=None, default_awq_backend="auto"):
             model_path,
             use_fast=True,
             trust_remote_code=True,
+            local_files_only=args.local_files_only,
         )
 
     with measure_step(timings, "load_config"):
-        config = AutoConfig.from_pretrained(model_path, trust_remote_code=True)
+        config = AutoConfig.from_pretrained(
+            model_path,
+            trust_remote_code=True,
+            local_files_only=args.local_files_only,
+        )
 
     with measure_step(timings, "init_empty_model"):
         with init_empty_weights():
             model = AutoModelForCausalLM.from_config(
                 config=config,
-                torch_dtype=dtype,
+                dtype=dtype,
                 trust_remote_code=True,
             )
 
