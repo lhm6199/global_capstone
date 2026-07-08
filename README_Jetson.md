@@ -1093,12 +1093,16 @@ export TORCH_CUDA_ARCH_LIST="8.7"
 ```bash
 cd awq/kernels
 
+export CUDA_HOME=/usr/local/cuda
+export TORCH_CUDA_ARCH_LIST="8.7"
+export MAX_JOBS=1
+
+cd awq/kernels
+
 rm -rf build
 rm -rf *.egg-info
 
 python setup.py install
-
-cd ../..
 ```
 
 그리고 다시 확인합니다.

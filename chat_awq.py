@@ -24,6 +24,7 @@ def build_chat_inputs(tokenizer, messages, device):
             messages,
             tokenize=False,
             add_generation_prompt=True,
+            enable_thinking=False,
         )
     else:
         text = "\n".join(
@@ -128,6 +129,11 @@ def generate_reply(model, tokenizer, messages, device, args):
     }
     if args.do_sample:
         generate_kwargs.update({"temperature": args.temperature, "top_p": args.top_p})
+    if args.show_tokens:
+        generate_kwargs["streamer"] = StreamingTextStreamer(
+            tokenizer,
+            show_special_tokens=args.show_special_tokens,
+        )
 
     with torch.inference_mode():
         output_ids = model.generate(**inputs, **generate_kwargs)
@@ -173,6 +179,16 @@ def main(argv=None):
     parser.add_argument("--do_sample", action="store_true")
     parser.add_argument("--temperature", type=float, default=0.7)
     parser.add_argument("--top_p", type=float, default=0.95)
+    parser.add_argument(
+        "--show_tokens",
+        action="store_true",
+        help="Stream generated text token by token while the model is running.",
+    )
+    parser.add_argument(
+        "--show_special_tokens",
+        action="store_true",
+        help="Show special tokens in --show_tokens streaming output instead of hiding them.",
+    )
     parser.add_argument(
         "--awq_backend",
         choices=["auto", "kernel", "torch_fallback"],
@@ -293,8 +309,14 @@ def main(argv=None):
             generation = generate_reply(model, tokenizer, messages, device, args)
             reply = generation["reply"]
 
+        if args.show_tokens:
+            print("\nAssistant: ", end="", flush=True)
+        reply = generate_reply(model, tokenizer, messages, device, args)
         messages.append({"role": "assistant", "content": reply})
-        print(f"\nAssistant: {reply}")
+        if args.show_tokens:
+            print()
+        else:
+            print(f"\nAssistant: {reply}")
 
 
 if __name__ == "__main__":

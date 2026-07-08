@@ -7,6 +7,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from accelerate import init_empty_weights, load_checkpoint_in_model
 from transformers import AutoConfig, AutoModelForCausalLM, AutoTokenizer
+import awq_inference_engine
 
 from rag import RagChatTurn, RagPromptBuilder, RagRetriever, build_rag_metrics, print_metrics
 
@@ -283,6 +284,7 @@ def build_inputs(tokenizer, prompt, device):
             [{"role": "user", "content": prompt}],
             tokenize=False,
             add_generation_prompt=True,
+            enable_thinking=False,
         )
     else:
         text = prompt
