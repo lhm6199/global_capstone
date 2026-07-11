@@ -13,3 +13,8 @@ sentence-transformers
 
 # awq/kernels build helper
 ninja
+
+networkx
+tiktoken
+xxhash
+nano-vectordb

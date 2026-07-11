@@ -68,16 +68,9 @@ class RagRetriever:
     ) -> "RagRetriever":
         index_path = Path(index_dir)
         chunks = load_chunks_jsonl(index_path / "chunks.jsonl")
-        faiss = _load_faiss()
         faiss_index_path = index_path / "faiss.index"
         if not faiss_index_path.exists():
             raise FileNotFoundError(f"FAISS index not found: {faiss_index_path}")
-
-        index = faiss.read_index(str(faiss_index_path))
-        if index.ntotal != len(chunks):
-            raise ValueError(
-                f"Index/document count mismatch: index has {index.ntotal}, chunks file has {len(chunks)}"
-            )
 
         embedder = SentenceTransformerEmbedder(
             embedding_model,
@@ -85,6 +78,13 @@ class RagRetriever:
             local_files_only=local_files_only,
             device=device,
         )
+        faiss = _load_faiss()
+        index = faiss.read_index(str(faiss_index_path))
+        if index.ntotal != len(chunks):
+            raise ValueError(
+                f"Index/document count mismatch: index has {index.ntotal}, chunks file has {len(chunks)}"
+            )
+
         return cls(embedder=embedder, index=index, chunks=chunks)
 
     def search(self, query: str, top_k: int) -> list[dict]:
